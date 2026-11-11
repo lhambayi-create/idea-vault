@@ -1,0 +1,17 @@
+# Idea Vault 🚀
+
+Welcome to my personal project sandbox! This repository serves as a centralized collection of automation scripts, security utilities, and technical experiments designed to demonstrate practical coding and problem-solving skills.
+
+---
+
+## 📂 Featured Projects
+
+### 1. Server Log Analyzer (`log_analyzer.py`)
+A lightweight Python script that parses server access logs to detect and flag potential brute-force attacks.
+* **Key Features:**
+  * Line-by-line log parsing.
+  * Automated frequency analysis on IP addresses.
+  * Customizable threshold alerts for failed login attempts.
+* **How to Run:**
+  ```bash
+  python log_analyzer.py
