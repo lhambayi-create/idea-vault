@@ -2,6 +2,10 @@ import json
 
 # Mock cloud environment data simulating AWS S3 buckets and IAM policies
 mock_cloud_infrastructure = {
+    "databases": [
+        {"name": "prod-financial-db", "encryption_at_rest": True},
+        {"name": "legacy-customer-db", "encryption_at_rest": False} # Violation!
+    ]
     "storage_buckets": [
         {"name": "company-financial-reports", "public_access": False, "encryption": True},
         {"name": "customer-pii-backup", "public_access": True, "encryption": False},  # Violation!
@@ -53,6 +57,16 @@ def generate_compliance_report():
     else:
         print("Status: PASSED - Controls operating effectively.")
     print("==================================================")
-
+def audit_databases(databases):
+    print("\n--- [ITGC] Auditing Database Encryption Controls ---")
+    violations = 0
+    for db in databases:
+        print(f"Checking database instance: {db['name']}...")
+        if not db["encryption_at_rest"]:
+            print(f"  [!] DEFICIENCY FOUND: Database '{db['name']}' lacks encryption-at-rest!")
+            violations += 1
+    return violations
+    db_issues = audit_databases(mock_cloud_infrastructure["databases"])
+    total_issues = s3_issues + iam_issues + db_issues
 if __name__ == "__main__":
     generate_compliance_report()
